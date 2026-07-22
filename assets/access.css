@@ -1,0 +1,147 @@
+/* =========================================================
+   Cadence Black — accessibility mode
+   Classes applied to <html> by access.js; settings persist
+   across pages via localStorage.
+   ========================================================= */
+
+/* ---------- dyslexia-friendly font (OpenDyslexic) ---------- */
+html.a11y-font body,
+html.a11y-font h1, html.a11y-font h2, html.a11y-font h3, html.a11y-font h4,
+html.a11y-font p, html.a11y-font a, html.a11y-font li, html.a11y-font span,
+html.a11y-font button, html.a11y-font input, html.a11y-font blockquote,
+html.a11y-font cite, html.a11y-font .brand, html.a11y-font .price{
+  font-family:'Open Dyslexic','OpenDyslexic','Comic Sans MS','Trebuchet MS',sans-serif !important;
+  font-style:normal !important;
+}
+html.a11y-font .hero h1{ font-size:clamp(2rem, 5.5vw, 3.4rem); }
+html.a11y-font .brand{ font-size:1.25rem; }
+
+/* ---------- larger text ---------- */
+html.a11y-large{ font-size:115%; }
+
+/* ---------- extra spacing (BDA style guide) ---------- */
+html.a11y-spacing body{ letter-spacing:0.05em; word-spacing:0.16em; }
+html.a11y-spacing p, html.a11y-spacing li{ line-height:2 !important; max-width:66ch; }
+html.a11y-spacing .card p{ max-width:none; }
+html.a11y-spacing p{ margin-bottom:0.6em; }
+
+/* ---------- calm mode: no motion, no shimmer, less noise ---------- */
+html.a11y-calm *, html.a11y-calm *::before, html.a11y-calm *::after{
+  animation:none !important; transition:none !important;
+}
+html.a11y-calm .sheen{
+  background:none !important; color:var(--white) !important;
+  -webkit-text-fill-color:var(--white) !important;
+}
+html.a11y-calm .brand{
+  background:none !important; color:var(--white) !important;
+  -webkit-text-fill-color:var(--white) !important;
+}
+html.a11y-calm .grain{ display:none; }
+html.a11y-calm .glow{ opacity:0.4; }
+html.a11y-calm .tile:hover{ transform:none; box-shadow:none; }
+html.a11y-calm .card:hover{ transform:none; }
+
+/* ---------- light "paper" theme (cream background, dark text) ---------- */
+html.a11y-light{
+  --black:#f6efe1;
+  --panel:#fffdf6;
+  --panel-2:#faf4e6;
+  --purple-deep:#e9def7;
+  --purple:#5b2f96;
+  --purple-bright:#5b1f8f;
+  --lavender:#463a5a;
+  --white:#241b31;
+  --gold:#7c6120;
+  --magenta:#8f1f6e;
+  --violet:#4a3aa8;
+  --line:rgba(91,31,143,0.3);
+}
+html.a11y-light .glow{ opacity:0.15; }
+html.a11y-light .grain{ display:none; }
+html.a11y-light .sheen, html.a11y-light .brand{
+  background:none !important; color:var(--white) !important;
+  -webkit-text-fill-color:var(--white) !important; animation:none !important;
+}
+html.a11y-light header.site{ background:rgba(255,253,246,0.9); }
+html.a11y-light .btn{ color:var(--white); }
+html.a11y-light .btn.solid{ color:#fffdf6; }
+html.a11y-light .badge-inline{ background:var(--purple); color:#fffdf6; }
+html.a11y-light .cart-count{ color:#fffdf6; }
+html.a11y-light .swatch{ opacity:0.85; }
+html.a11y-light .photo-hero .hp-bg{ opacity:0.25; }
+html.a11y-light .hero-photo .hp-bg{ opacity:0.25; }
+
+/* ---------- colour filters (visual-stress overlays) ---------- */
+html[data-a11y-tint] body::after{
+  content:""; position:fixed; inset:0; z-index:9990; pointer-events:none;
+  mix-blend-mode:screen;
+}
+html.a11y-light[data-a11y-tint] body::after{ mix-blend-mode:multiply; }
+html[data-a11y-tint="cream"]  body::after{ background:rgba(255,242,200,0.22); }
+html[data-a11y-tint="yellow"] body::after{ background:rgba(255,238,120,0.20); }
+html[data-a11y-tint="blue"]   body::after{ background:rgba(135,175,255,0.20); }
+html[data-a11y-tint="green"]  body::after{ background:rgba(145,225,170,0.18); }
+html[data-a11y-tint="rose"]   body::after{ background:rgba(255,165,200,0.20); }
+
+/* ---------- reading ruler ---------- */
+#a11y-ruler{
+  position:fixed; left:0; right:0; height:100px; display:none;
+  transform:translateY(-50%); pointer-events:none; z-index:9991;
+  background:rgba(183,107,255,0.08);
+  border-top:2px solid rgba(183,107,255,0.55);
+  border-bottom:2px solid rgba(183,107,255,0.55);
+}
+html.a11y-ruler-on #a11y-ruler{ display:block; }
+html.a11y-light #a11y-ruler{
+  background:rgba(91,31,143,0.06);
+  border-color:rgba(91,31,143,0.45);
+}
+
+/* ---------- floating button + panel ---------- */
+#a11y-btn{
+  position:fixed; bottom:1.4rem; left:1.4rem; z-index:9995;
+  width:52px; height:52px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  background:linear-gradient(135deg, var(--purple), var(--purple-deep));
+  border:1px solid var(--purple-bright); color:#fff; cursor:pointer;
+  box-shadow:0 8px 24px rgba(0,0,0,0.4);
+}
+#a11y-btn svg{ width:26px; height:26px; }
+#a11y-btn:hover{ box-shadow:0 0 26px rgba(183,107,255,0.5); }
+html.a11y-light #a11y-btn{ color:#fffdf6; }
+
+#a11y-panel{
+  position:fixed; bottom:5.6rem; left:1.4rem; z-index:9996;
+  width:min(320px, calc(100vw - 2.8rem));
+  background:var(--panel); border:1px solid var(--line); border-radius:16px;
+  box-shadow:0 24px 60px rgba(0,0,0,0.5);
+  padding:1.2rem 1.3rem; display:none;
+  font-family:'Jost',sans-serif;
+}
+html.a11y-panel-open #a11y-panel{ display:block; }
+#a11y-panel h2{
+  font-size:1rem; margin-bottom:0.9rem; letter-spacing:0.04em;
+  display:flex; justify-content:space-between; align-items:center;
+}
+#a11y-panel h2 button{
+  background:none; border:none; color:var(--lavender); font-size:1.2rem; cursor:pointer;
+}
+#a11y-panel label.opt{
+  display:flex; align-items:center; gap:0.6rem; padding:0.4rem 0;
+  font-size:0.92rem; color:var(--lavender); cursor:pointer;
+}
+#a11y-panel label.opt input{ accent-color:var(--purple-bright); width:17px; height:17px; }
+#a11y-panel .tint-row{ margin-top:0.7rem; }
+#a11y-panel .tint-row span{ display:block; font-size:0.82rem; color:var(--lavender); margin-bottom:0.4rem; }
+#a11y-panel select{
+  width:100%; padding:0.5rem 0.6rem; border-radius:9px;
+  background:var(--panel-2); color:var(--white); border:1px solid var(--line);
+  font-family:'Jost',sans-serif; font-size:0.9rem;
+}
+#a11y-panel .a11y-reset{
+  margin-top:0.9rem; width:100%; padding:0.55rem; border-radius:999px;
+  background:none; border:1px solid var(--line); color:var(--lavender);
+  cursor:pointer; font-family:'Jost',sans-serif; font-size:0.85rem;
+}
+#a11y-panel .a11y-reset:hover{ border-color:var(--purple-bright); color:var(--white); }
